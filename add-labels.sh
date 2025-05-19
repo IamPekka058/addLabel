@@ -3,7 +3,7 @@ set -e
 
 LABELS_RAW="$1"
 NUMBER="$2"
-REPO="$3"
+DELIMITER="$3"
 
 if [[ -z "$LABELS_RAW" || -z "$NUMBER" || -z "$REPO" ]]; then
   echo "Usage: $0 '<label1 | label2 | ...>' <issue_number> <owner/repo>"
@@ -15,10 +15,10 @@ if [[ -z "$GITHUB_TOKEN" ]]; then
   exit 1
 fi
 
-# Convert labels to JSON array (comma separated)
+# Convert labels to JSON array
 LABELS_JSON="["
 FIRST=1
-IFS='|' read -ra LABELS_ARR <<< "$LABELS_RAW"
+IFS="$DELIMITER" read -ra LABELS_ARR <<< "$LABELS_RAW"
 for label in "${LABELS_ARR[@]}"; do
   label_trimmed="$(echo "$label" | xargs)"
   if [[ -n "$label_trimmed" ]]; then
