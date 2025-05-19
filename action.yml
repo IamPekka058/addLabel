@@ -9,6 +9,10 @@ inputs:
   github_token:
     description: 'GitHub token to authenticate.'
     required: true
+  delimiter:
+    description: 'Delimiter used to separate labels (default: |)'
+    required: false
+    default: '|'
 
 runs:
   using: 'composite'
@@ -16,7 +20,7 @@ runs:
     - name: Add labels to PR or Issue
       shell: bash
       env:
-        GH_TOKEN: ${{ inputs.github_token }}
+        GITHUB_TOKEN: ${{ inputs.github_token }}
         REPO: ${{ github.event.repository.full_name }}
       run: |
         NUMBER=""
@@ -28,7 +32,7 @@ runs:
           echo "No pull request or issue found in the context."
           exit 1
         fi
-        bash ./add-labels.sh "${{ inputs.labels }}" "$NUMBER" "$REPO"
+        bash ./add-labels.sh "${{ inputs.labels }}" "$NUMBER" "${{ inputs.delimiter }}"
 
 branding:
   icon: 'plus-circle'
