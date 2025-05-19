@@ -18,6 +18,5 @@ jobs:
       - name: Run addLabel Action
         uses: ./
         with:
-          labels: 'hello;there'
+          labels: ["hello","there"]
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          delimiter: ';'

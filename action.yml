@@ -1,18 +1,14 @@
-name: 'Add Label to PR or Issue'
-description: 'A fast GitHub Action to add specific labels to a pull request or issue using the GitHub CLI.'
+name: 'Add Labels to PR or Issue'
+description: 'A fast GitHub Action to add specific labels to a pull request or issue using the GitHub API.'
 author: 'IamPekka058 <59747867+IamPekka058@users.noreply.github.com>'
 
 inputs:
   labels:
-    description: "A '|' separated list of labels to add."
+    description: 'A JSON array of labels to add, e.g. ["bug", "help wanted"].'
     required: true
   github_token:
     description: 'GitHub token to authenticate.'
     required: true
-  delimiter:
-    description: 'Delimiter used to separate labels (default: |)'
-    required: false
-    default: '|'
 
 runs:
   using: 'composite'
@@ -32,7 +28,7 @@ runs:
           echo "No pull request or issue found in the context."
           exit 1
         fi
-        bash ${{ github.action_path }}/add-labels.sh "${{ inputs.labels }}" "$NUMBER" "${{ inputs.delimiter }}"
+        bash ${{ github.action_path }}/add-labels.sh "${{ inputs.labels }}" "$NUMBER" "|"
 
 branding:
   icon: 'plus-circle'
