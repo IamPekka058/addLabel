@@ -1,0 +1,31 @@
+name: 'Add Label to PR or Issue'
+description: 'A fast GitHub Action to add specific labels to a pull request or issue using the GitHub CLI.'
+author: 'IamPekka058 <59747867+IamPekka058@users.noreply.github.com>'
+
+inputs:
+  labels:
+    description: "A '|' separated list of labels to add."
+    required: true
+  github_token:
+    description: 'GitHub token to authenticate.'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Add labels to PR or Issue
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github_token }}
+        REPO: ${{ github.event.repository.full_name }}
+      run: |
+        NUMBER=""
+        if [[ -n "${{ github.event.pull_request.number }}" ]]; then
+          NUMBER="${{ github.event.pull_request.number }}"
+        elif [[ -n "${{ github.event.issue.number }}" ]]; then
+          NUMBER="${{ github.event.issue.number }}"
+        else
+          echo "No pull request or issue found in the context."
+          exit 1
+        fi
+        bash ./add-labels.sh "${{ inputs.labels }}" "$NUMBER" "$REPO"
