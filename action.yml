@@ -29,3 +29,7 @@ runs:
           exit 1
         fi
         bash ./add-labels.sh "${{ inputs.labels }}" "$NUMBER" "$REPO"
+
+branding:
+  icon: 'plus-circle'
+  color: 'green'
