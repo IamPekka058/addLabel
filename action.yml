@@ -32,7 +32,7 @@ runs:
           echo "No pull request or issue found in the context."
           exit 1
         fi
-        bash ./add-labels.sh "${{ inputs.labels }}" "$NUMBER" "${{ inputs.delimiter }}"
+        bash ${{ github.action_path }}/add-labels.sh "${{ inputs.labels }}" "$NUMBER" "${{ inputs.delimiter }}"
 
 branding:
   icon: 'plus-circle'
