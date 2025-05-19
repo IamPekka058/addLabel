@@ -1,4 +1,4 @@
-name: Test addLabel Action
+name: Test addLabels Action
 
 on:
   issues:
@@ -15,8 +15,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Run addLabel Action
+      - name: Run addLabels Action (multiline)
         uses: ./
         with:
-          labels: ["hello","there"]
+          labels: |
+            - hello
+            - there
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Run addLabels Action (one line)
+        uses: ./
+        with:
+          labels: 'feature'
           github_token: ${{ secrets.GITHUB_TOKEN }}
