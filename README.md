@@ -24,7 +24,7 @@ A fast GitHub Action to add specific labels, seperated by custom delimeter, to a
 |--------------|------------------------------------------------------------|----------|
 | labels       | A list of labels to add, separated by the chosen delimiter.| Yes      |
 | github_token | GitHub token to authenticate.                              | Yes      |
-| delimiter    | Delimiter used to separate labels (default: <code>|</code>).| No       |
+| delimiter    | Delimiter used to separate labels (default: <code>&#124;</code>).| No       |
 
 ## How it works
 
